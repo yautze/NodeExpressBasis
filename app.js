@@ -1,7 +1,11 @@
 import express from "express"
 import bodyparser from "body-parser"
 import todo from "./router/todo"
+import cors from "cors"
 const app = express()
+
+// 跨網域
+app.use(cors())
 
 // 解析json格式(req.body)
 app.use(bodyparser.urlencoded({extended: true}))
