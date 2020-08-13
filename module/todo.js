@@ -60,6 +60,7 @@ module.exports = {
                 reject(new errData(400, "DB Connect Faild"))
             }
             const sql = mysql.format("SELECT * FROM `todo` WHERE isDone = ?", [status])
+            
             // sql的執行
             connection.query(sql, (err,result) => {
                 connection.release()

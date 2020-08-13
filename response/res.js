@@ -1,21 +1,23 @@
-const resData = {
-    data : null,
-    status : {
-        code : 200,
-        msg : "Success",
-        time: 0
-    }
-} 
+
 module.exports = {
     R : (data) => {
-        resData.data = data
-        resData.status.time = Math.floor(new Date() / 1000)
-        return resData
+        return {
+            data: data,
+            status: {
+                code: 200,
+                msg: "suucess",
+                time: Math.floor(new Date() / 1000)
+            }
+        }
     },
     E : (err) => {
-        resData.status.code = err.code
-        resData.status.msg = err.msg
-        resData.status.time = Math.floor(new Date() / 1000)
-        return resData
+        return {
+            data: null,
+            status: {
+                code: err.code,
+                msg: err.msg,
+                time: Math.floor(new Date() / 1000)
+            }
+        }
     }
 }
