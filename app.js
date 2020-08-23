@@ -2,6 +2,7 @@ import express from "express"
 import bodyparser from "body-parser"
 import todo from "./router/todo"
 import test from "./router/test"
+import order from "./router/order"
 import cors from "cors"
 const app = express()
 
@@ -15,6 +16,7 @@ app.use(bodyparser.json())
 // 路由設定
 app.use("/todos",todo)
 app.use("/test",test)
+app.use("/order",order)
 
 // 沒有設定路徑的頁面
 app.use((req,res,next) => {

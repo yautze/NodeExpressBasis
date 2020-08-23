@@ -10,7 +10,7 @@ const Create = (req, res) => {
     const result = s.creatReq.validate(req.body)
 
     if (result.error != null){
-        res.send(r.E({
+        res.json(r.E({
                 code : 400,
                 msg : result.error.details[0].message
             })
@@ -20,9 +20,9 @@ const Create = (req, res) => {
         req.body.createTime = sd.format(new Date(),'YYYY-MM-DD HH:mm:ss')
 
         todo.Create(req.body).then((data) =>{
-            res.send(r.R(data))
+            res.json(r.R(data))
         }).catch((err) => {
-            res.send(r.E(err))
+            res.json(r.E(err))
         })
     }
 }
@@ -30,27 +30,27 @@ const Create = (req, res) => {
 // get todos
 const GetList = (req, res) => {
     todo.GetList().then((data) =>{
-        res.send(r.R(data))
+        res.json(r.R(data))
     }).catch((err) => {
-        res.send(r.E(err))
+        res.json(r.E(err))
     })
 }
 
 // get by ID
 const GetByStatus = (req, res) => {
     todo.GetByStatus(req.params.status).then((data) =>{
-        res.send(r.R(data))
+        res.json(r.R(data))
     }).catch((err) => {
-        res.send(r.E(err))
+        res.json(r.E(err))
     })
 }
 
 // delete by ID
 const Delete = (req, res) => {
     todo.Delete(req.params.id).then((data) => {
-        res.send(r.R(data))
+        res.json(r.R(data))
     }).catch((err) => {
-        res.send(r.E(err))
+        res.json(r.E(err))
     })
 }
 
@@ -58,9 +58,9 @@ const Delete = (req, res) => {
 const UpdateIsDone = (req, res) => {
     const sql = mysql.format("UPDATE `todo` SET isDone = '1' WHERE id = ?", [req.params.id])
     todo.Update(sql).then((data) => {
-        res.send(r.R(data))
+        res.json(r.R(data))
     }).catch((err) => {
-        res.send(r.E(err))
+        res.json(r.E(err))
     })
 }
 
@@ -69,7 +69,7 @@ const UpdateInfo = (req, res) => {
     // 驗證封包內容
     const result = s.creatReq.validate(req.body)
     if (result.error != null){
-        res.send(r.E({
+        res.json(r.E({
                 code : 400,
                 msg : result.error.details[0].message
             })
@@ -77,9 +77,9 @@ const UpdateInfo = (req, res) => {
     }else{
         const sql = mysql.format("UPDATE `todo` SET thing = ? WHERE id = ?", [req.body.thing, req.params.id])
         todo.Update(sql).then((data) => {
-            res.send(r.R(data))
+            res.json(r.R(data))
         }).catch((err) => {
-            res.send(r.E(err))
+            res.json(r.E(err))
         })
     }
 }

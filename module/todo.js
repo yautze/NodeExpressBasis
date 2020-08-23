@@ -15,14 +15,14 @@ module.exports = {
         pool.getConnection((err,connection) => {
             if(err){
                 connection.release()
-                reject(new errData(400, "DB Connect Faild"))
+                reject(new errData(1010, "DB Connect Faild"))
             }
             const sql = mysql.format('INSERT INTO `todo` SET ?', data)
             // sql的執行
             connection.query(sql, (err,result) => {
                 connection.release()
                 if(err || result.affectedRows != 1){ 
-                    reject(new errData(400, "Create Data Failed"))
+                    reject(new errData(1011, "Create Data Failed"))
                 }else{
                     resolve("")
                 }
@@ -35,16 +35,16 @@ module.exports = {
         pool.getConnection((err,connection) => {
             if(err){
                 connection.release()
-                reject(new errData(400, "DB Connect Faild"))
+                reject(new errData(1010, "DB Connect Faild"))
             }
             const sql = 'SELECT * FROM `todo`'
             // sql的執行
             connection.query(sql, (err,result) => {
                 connection.release()
                 if(err){ 
-                    reject(new errData(400, "Get Data Failed"))
+                    reject(new errData(1012, "Get Data Failed"))
                 }else if(result.length == 0){
-                    reject(new errData(404, "Not Found Data in `todo`"))
+                    reject(new errData(1013, "Not Found Data in `todo`"))
                 }else{
                     resolve(result)
                 }
@@ -57,7 +57,7 @@ module.exports = {
         pool.getConnection((err,connection) => {
             if(err){
                 connection.release()
-                reject(new errData(400, "DB Connect Faild"))
+                reject(new errData(1010, "DB Connect Faild"))
             }
             const sql = mysql.format("SELECT * FROM `todo` WHERE isDone = ?", [status])
             
@@ -65,9 +65,9 @@ module.exports = {
             connection.query(sql, (err,result) => {
                 connection.release()
                 if(err){ 
-                    reject(new errData(400, "Get Data Failed"))
+                    reject(new errData(1012, "Get Data Failed"))
                 }else if(result.length == 0){
-                    reject(new errData(404, "Not Found Data in `todo`"))
+                    reject(new errData(1013, "Not Found Data in `todo`"))
                 }else{
                     resolve(result)
                 }
@@ -80,15 +80,15 @@ module.exports = {
         pool.getConnection((err, connection) => {
             if(err){
                 connection.release()
-                reject(new errData(400,"DB Connect Faild"))  
+                reject(new errData(1010,"DB Connect Faild"))  
             }
             const sql = mysql.format("DELETE FROM `todo` WHERE id = ?", [id])
             connection.query(sql, (err,result) => {
                 connection.release()
                 if(err){
-                    reject(new errData(400,"Delete Data Failed"))
+                    reject(new errData(1014,"Delete Data Failed"))
                 }else if(result.affectedRows == 0){ // 是否有刪除到一筆資料
-                    reject(new errData(404,"Data Not Found"))
+                    reject(new errData(1013,"Data Not Found"))
                 }else{
                     resolve("")
                 }
@@ -100,14 +100,14 @@ module.exports = {
         pool.getConnection((err, connection) => {
             if(err){
                 connection.release()
-                reject(new errData(400,"DB Connect Faild"))
+                reject(new errData(1010,"DB Connect Faild"))
             }
             connection.query(sql, (err,result) => {
                 connection.release()
                 if(err){
-                    reject(new errData(400,"Update Data Failed"))
+                    reject(new errData(1015,"Update Data Failed"))
                 }else if(result.changedRows == 0){ // 是否有更新到一筆資料
-                    reject(new errData(404,"Data Not Found"))
+                    reject(new errData(1013,"Data Not Found"))
                 }else{
                     resolve("")
                 }
